@@ -1,0 +1,38 @@
+node{
+
+def mavenHome = tool name: "maven3.8.4"
+
+stage ('checkoutCode'){
+git branch: 'development', credentialsId: '77b35203-8389-4f9d-b405-8db39f15980d', url: 'https://github.com/balu-devops-oct-2021/maven-web-application.git'
+}
+
+stage ('Build'){
+sh "${mavenHome}/bin/mvn clean package"
+}
+/*
+stage('ExecuteSonarQubeReport'){
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+stage('UploadArtifactsIntoNexus'){
+sh "${mavenHome}/bin/mvn deploy"
+}
+
+stage('DeployAppintoTomcatServer'){
+
+sshagent(['2dd3135e-3253-4c78-837a-bf79486189d8']) {
+   sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.236.195.42:/opt/apache-tomcat-9.0.54/webapps/" 
+}
+}
+
+
+stage ('sendEmailNotification'){
+
+emailext body: '''Build over..
+Regards
+balutechnologies
+6301920963''', subject: 'Build over', to: 'balakrishna1996123@gmail.com'
+}
+
+*/
+
+}
